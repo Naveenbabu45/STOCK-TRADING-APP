@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import axiosInstance from '../components/axiosInstance';
 
 const GeneralContext = createContext();
@@ -20,10 +20,10 @@ export const GeneralProvider = ({ children }) => {
   const [toast, setToast] = useState(null);
 
   // Toast helper
-  const showToast = (message, type = 'info') => {
-    setToast({ message, type, id: Date.now() });
-    setTimeout(() => setToast(null), 3500);
-  };
+  const showToast = useCallback((message, type = 'info') => {
+  setToast({ message, type, id: Date.now() });
+  setTimeout(() => setToast(null), 3500);
+}, []);
 
   // Restore session on mount
   useEffect(() => {
